@@ -62,7 +62,7 @@
         self.objects = [NSMutableArray arrayWithObjects:
                     @"http://www.httpwatch.com/httpgallery/authentication/authenticatedimage/default.aspx?0.35786508303135633",     // requires HTTP auth, used to demo the NTLM auth
                     @"http://assets.sbnation.com/assets/2512203/dogflops.gif",
-                    @"https://raw.githubusercontent.com/liyong03/YLGIFImage/master/YLGIFImageDemo/YLGIFImageDemo/joy.gif",
+                    @"https://user-images.githubusercontent.com/107999/39456872-b76f79f4-4d3d-11e8-98aa-08fee224ec4e.jpeg",
                     @"http://www.ioncannon.net/wp-content/uploads/2011/06/test2.webp",
                     @"http://www.ioncannon.net/wp-content/uploads/2011/06/test9.webp",
                     @"http://littlesvr.ca/apng/images/SteamEngine.webp",
@@ -124,9 +124,16 @@
     [cell.customImageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     cell.customTextLabel.text = [NSString stringWithFormat:@"Image #%ld", (long)indexPath.row];
-    [cell.customImageView sd_setImageWithURL:[NSURL URLWithString:self.objects[indexPath.row]]
-                            placeholderImage:placeholderImage
-                                     options:indexPath.row == 0 ? SDWebImageRefreshCached : 0];
+    
+    if(indexPath.row == 0) {
+        [cell.customImageView sd_setImageWithURL:[NSURL URLWithString:self.objects[indexPath.row]]
+                                placeholderImage:placeholderImage
+                                         options:SDWebImageRefreshCached];
+    } else {
+        [cell.customImageView sd_setImageWithURL:[NSURL URLWithString:self.objects[indexPath.row]]
+                                placeholderImage:placeholderImage
+                                         options:SDWebImageProgressiveDownload];
+    }
     return cell;
 }
 
